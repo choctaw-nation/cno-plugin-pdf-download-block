@@ -1,7 +1,7 @@
 {
-	"name": "choctaw-plugin-template",
-	"version": "1.1.0",
-	"description": "Choctaw Plugin template",
+	"name": "cno-pdf-download-selector",
+	"version": "1.0.0",
+	"description": "A block that allows a user to select a pdf to download",
 	"prettier": "@wordpress/prettier-config",
 	"browserslist": [
 		"extends @wordpress/browserslist-config"
@@ -12,20 +12,29 @@
 		"inc",
 		"README.md",
 		"LICENSE",
-		"CHANGELOG.md",
-		"index.php"
+		"cno-pdf-download-selector.php"
 	],
 	"scripts": {
-		"build": "wp-scripts build --blocks-manifest --webpack-copy-php",
+		"build": "wp-scripts build --blocks-manifest --experimental-modules --webpack-copy-php",
 		"lint:css": "npx stylelint '**/*.scss' '**/*.css' --fix --allow-empty-input",
 		"lint:js": "npx eslint --fix",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts build && wp-scripts plugin-zip",
-		"start": "wp-scripts start --blocks-manifest --webpack-copy-php"
+		"plugin-zip": "wp-scripts build --blocks-manifest --experimental-modules --webpack-copy-php && wp-scripts plugin-zip",
+		"start": "wp-scripts start --blocks-manifest --experimental-modules --webpack-copy-php"
+	},
+	"dependencies": {
+		"@wordpress/interactivity": "^6.36.0"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2",
 		"@eslint/eslintrc": "^3",
+		"@wordpress/block-editor": "^15.9.0",
+		"@wordpress/blocks": "^15.9.0",
+		"@wordpress/data": "^10.36.0",
+		"@wordpress/dom-ready": "^4.36.0",
+		"@wordpress/editor": "^14.36.0",
+		"@wordpress/element": "^6.36.0",
+		"@wordpress/icons": "^11.3.0",
 		"@wordpress/scripts": "^31",
 		"eslint": "^9",
 		"eslint-config-prettier": "^10",

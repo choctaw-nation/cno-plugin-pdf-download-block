@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cno/pdf-download-selector",
+	"version": "1.0.0",
+	"title": "PDF Download Selector",
+	"category": "widgets",
+	"icon": "download",
+	"description": "A select that lets users choose a PDF to download.",
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true
+		},
+		"align": [ "wide", "full" ],
+		"alignWide": true
+	},
+	"attributes": {
+		"pdfFiles": {
+			"type": "array",
+			"default": []
+		},
+		"useExternalSource": {
+			"type": "boolean",
+			"default": false
+		},
+		"selectedPdf": {
+			"type": "string",
+			"default": ""
+		},
+		"selectText": {
+			"type": "string",
+			"default": "Select a PDF"
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Download PDF"
+		}
+	},
+	"editorScript": "file:./index.tsx",
+	"style": "file:./style-index.css",
+	"viewScriptModule": "file:./view.ts",
+	"render": "file:./render.php"
+}

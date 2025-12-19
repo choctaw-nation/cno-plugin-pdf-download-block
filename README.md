@@ -1,18 +1,11 @@
-# CNO Template--Plugin
+# PDF Download Selector Block
 
-A quick scaffolding for plugins.
+A block that allows a user to select a pdf to download
 
-## To Dos:
+## Changelog
 
--   [ ] Update File Headers
-    -   [ ] Set the subpackage in File Headers (e.g. `@subpackage Events`)
-    -   [ ] Update `package.json` and `composer.json` to reflect the name of your plugin
-    -   [ ] Update `index.php`
--   [ ] Namespace your classes as `ChoctawNation\Sub Package Name` (e.g. `namespace ChoctawNation\Events`)
--   [ ] Update the `index.php` file to `cno-[plugin-name].php`
+### v1.0.0 - [December 19, 2025]
+
+-   Init block!
+
 -   [ ] Update the `deploy.yml` with the appropriate file name
--   [ ] Update the `package.json` `files` key with the needed files to include when building the plugin
--   [ ] Overwrite this readme!
--   [ ] Run `npm install` and `composer install`
-
-[View the Changelog here](./CHANGELOG.md)
