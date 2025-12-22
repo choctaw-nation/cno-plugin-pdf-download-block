@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Choctaw Plugin Starter
- * Plugin URI: https://github.com/choctaw-nation/cno-template-plugin
- * Description: Quick Boilerplate for starting a new plugin
- * Version: 1.2.1
+ * Plugin Name: CNO PDF Download Selector Block
+ * Plugin URI: https://github.com/choctaw-nation/cno-plugin-pdf-download-block
+ * Description: A block that allows a user to select a pdf to download
+ * Version: 1.0.0
  * Author: Choctaw Nation of Oklahoma
  * Author URI: https://www.choctawnation.com
  * Text Domain: cno
@@ -14,10 +14,10 @@
  * Tested up to: 6.9.0
  *
  * @package ChoctawNation
- * @subpackage PluginStarter
+ * @subpackage PDFDownloadSelector
  */
 
-use ChoctawNation\Plugin_Loader;
+use ChoctawNation\PDFDownloadSelector\Plugin_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;

@@ -3,10 +3,10 @@
  * Plugin Loader
  *
  * @package ChoctawNation
- * @subpackage PluginStarter
+ * @subpackage PDFDownloadSelector
  */
 
-namespace ChoctawNation;
+namespace ChoctawNation\PDFDownloadSelector;
 
 /** Inits the Plugin */
 class Plugin_Loader {
@@ -24,6 +24,7 @@ class Plugin_Loader {
 	 */
 	public function __construct( string $dir_path ) {
 		$this->dir_path = $dir_path;
+		add_action( 'init', array( $this, 'register_blocks' ) );
 	}
 
 	/**
@@ -32,7 +33,6 @@ class Plugin_Loader {
 	 * @return void
 	 */
 	public function activate(): void {
-		_doing_it_wrong( __METHOD__, 'Method not implemented yet', '1.1.0' );
 	}
 
 	/**
@@ -42,14 +42,13 @@ class Plugin_Loader {
 	 * @return void
 	 */
 	public function deactivate(): void {
-		_doing_it_wrong( __METHOD__, 'Method not implemented yet', '1.1.0' );
 	}
 
 	/**
 	 * Register Gutenberg Block
 	 */
-	public function register_block() {
-		$blocks_path = $this->dir_path;
+	public function register_blocks() {
+		$blocks_path = $this->dir_path . 'build/';
 		/**
 		 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
 		 * based on the registered block metadata.
@@ -58,7 +57,7 @@ class Plugin_Loader {
 		 * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
 		 */
 		if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
-			wp_register_block_types_from_metadata_collection( $blocks_path, $blocks_path . '/build/blocks-manifest.php' );
+			wp_register_block_types_from_metadata_collection( $blocks_path, $blocks_path . 'blocks-manifest.php' );
 			return;
 		}
 
@@ -69,14 +68,14 @@ class Plugin_Loader {
 		 * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
 		 */
 		if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
-			wp_register_block_metadata_collection( $blocks_path, $blocks_path . '/build/blocks-manifest.php' );
+			wp_register_block_metadata_collection( $blocks_path, $blocks_path . 'blocks-manifest.php' );
 		}
 		/**
 		 * Registers the block type(s) in the `blocks-manifest.php` file.
 		 *
 		 * @see https://developer.wordpress.org/reference/functions/register_block_type/
 		 */
-		$manifest_data = require $blocks_path . '/build/blocks-manifest.php';
+		$manifest_data = require $blocks_path . 'blocks-manifest.php';
 		foreach ( array_keys( $manifest_data ) as $block_type ) {
 			register_block_type( $blocks_path . "/{$block_type}" );
 		}

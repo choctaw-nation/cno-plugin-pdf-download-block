@@ -18,7 +18,7 @@ const compat = new FlatCompat( {
 
 export default defineConfig( [
 	globalIgnores( [
-		'src/js/**/*.d.ts',
+		'src/**/*.d.ts',
 	] ),
 	includeIgnoreFile( gitignorePath, 'Ignore .gitignore files' ),
 	...fixupConfigRules(
@@ -27,7 +27,7 @@ export default defineConfig( [
 		)
 	),
 	{
-		files: [ 'src/js/**/*.{js,ts,jsx,tsx}' ],
+		files: [ 'src/**/*.{js,ts,jsx,tsx}' ],
 		languageOptions: {
 			globals: globals.browser,
 		},
@@ -50,9 +50,12 @@ export default defineConfig( [
 		settings: {
 			'import/resolver': {
 				node: {
-					extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
+					extensions: [ '.js', '.jsx', '.ts', '.tsx', '.scss' ],
 				},
-				typescript: {},
+				typescript: {
+					alwaysTryTypes: true,
+					project: './tsconfig.json',
+				},
 			},
 		},
 	},
