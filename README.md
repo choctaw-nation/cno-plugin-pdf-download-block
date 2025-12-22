@@ -21,6 +21,6 @@ ACF Fields **must** be exposed to the REST API for access in the block editor! S
 
 ## Changelog
 
-### v1.0.0 - [December 19, 2025]
+### v1.0.0 - [December 22, 2025]
 
 -   Init block!
