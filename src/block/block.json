@@ -24,9 +24,8 @@
 			"type": "boolean",
 			"default": false
 		},
-		"selectedPdf": {
-			"type": "string",
-			"default": ""
+		"selectedCPT": {
+			"type": "string"
 		},
 		"selectText": {
 			"type": "string",

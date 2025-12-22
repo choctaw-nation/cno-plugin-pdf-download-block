@@ -1,21 +1,17 @@
 import { useBlockProps, RichText } from '@wordpress/block-editor';
 import { SelectControl } from '@wordpress/components';
-import { useState, useEffect, Fragment } from '@wordpress/element';
+import { Fragment } from '@wordpress/element';
 import BlockSettings from './BlockSettings';
+import useFilesPreview from './hooks/useFilesPreview';
 
 export default function Edit( props ) {
 	const { attributes, setAttributes } = props;
-	const { pdfFiles, buttonText, selectText } = attributes;
-	const [ selectedPdf, setSelectedPdf ] = useState( '' );
+	const { buttonText } = attributes;
+	const { options } = useFilesPreview( attributes );
 	const blockProps = useBlockProps( {
 		className: 'pdf-download-selector',
 	} );
 
-	const options = [ { label: selectText, value: '' } ].concat(
-		pdfFiles.map( function ( file ) {
-			return { label: file.title, value: file.url };
-		} )
-	);
 	return (
 		<Fragment>
 			<BlockSettings { ...props } />
@@ -25,10 +21,8 @@ export default function Edit( props ) {
 					__nextHasNoMarginBottom
 					label="Select a PDF"
 					hideLabelFromVision={ true }
-					value={ selectedPdf }
-					onChange={ ( value: string ) => {
-						setSelectedPdf( value );
-					} }
+					value={ '' }
+					onChange={ () => null }
 					options={ options }
 					className="pdf-select"
 				/>

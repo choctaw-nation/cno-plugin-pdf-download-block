@@ -13,8 +13,10 @@ import {
 	Flex,
 	FlexBlock,
 } from '@wordpress/components';
+import CPTSettings from './CPTSettings';
 
-export default function BlockSettings( { attributes, setAttributes } ) {
+export default function BlockSettings( props ) {
+	const { attributes, setAttributes } = props;
 	const { pdfFiles, selectText, useExternalSource } = attributes;
 
 	function addPdf( media: any ) {
@@ -47,11 +49,10 @@ export default function BlockSettings( { attributes, setAttributes } ) {
 						<ToggleControl
 							__nextHasNoMarginBottom
 							label="Use CPT"
-							checked={ false }
-							onChange={ ( value: boolean ) => {
-								alert( 'method not implemented yet' );
-								return false;
-							} }
+							checked={ useExternalSource }
+							onChange={ ( value: boolean ) =>
+								setAttributes( { useExternalSource: value } )
+							}
 							help={
 								useExternalSource
 									? 'Loading PDFs from a CPT'
@@ -138,6 +139,7 @@ export default function BlockSettings( { attributes, setAttributes } ) {
 					) }
 				</Flex>
 			</PanelBody>
+			{ useExternalSource && <CPTSettings { ...props } /> }
 		</InspectorControls>
 	);
 }

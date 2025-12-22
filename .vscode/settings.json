@@ -23,7 +23,7 @@
 		"editor.formatOnSave": true
 	},
 	"[typescriptreact]": {
-		"editor.formatOnSave": true
+		"editor.formatOnSave": false
 	},
 	"[yaml]": {
 		"editor.autoIndent": "advanced",
@@ -38,7 +38,7 @@
 		"editor.useTabStops": true,
 		"prettier.useTabs": false
 	},
-	"cSpell.words": [ "alignfull", "featuredmedia" ],
+	"cSpell.words": [ "alignfull", "featuredmedia", "pdfs" ],
 	"css.format.spaceAroundSelectorSeparator": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always",
