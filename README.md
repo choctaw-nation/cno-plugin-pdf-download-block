@@ -21,6 +21,13 @@ ACF Fields **must** be exposed to the REST API for access in the block editor! S
 
 ## Changelog
 
+### v1.0.1 - [January 2, 2025]
+
+-   Fixed: Block correctly grabs pdfs from the CPT
+-   Fixed: Enforced Bootstrap-like styles on the select field for consistent cross-browser rendering
+-   Fixed: Unstable `useSelect` issue is resolved
+-   Chore: Updated packages
+
 ### v1.0.0 - [December 22, 2025]
 
 -   Init block!

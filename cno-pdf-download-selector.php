@@ -3,7 +3,7 @@
  * Plugin Name: CNO PDF Download Selector Block
  * Plugin URI: https://github.com/choctaw-nation/cno-plugin-pdf-download-block
  * Description: A block that allows a user to select a pdf to download
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Choctaw Nation of Oklahoma
  * Author URI: https://www.choctawnation.com
  * Text Domain: cno

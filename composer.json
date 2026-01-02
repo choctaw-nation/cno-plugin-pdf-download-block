@@ -13,6 +13,7 @@
 		"phpcbf": "phpcbf inc/ cno-pdf-download-selector.php"
 	},
 	"require-dev": {
-		"wp-coding-standards/wpcs": "*"
+		"wp-coding-standards/wpcs": "*",
+		"php-stubs/acf-pro-stubs": "*"
 	}
 }

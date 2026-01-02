@@ -8,15 +8,29 @@ export default function useFilesPreview( {
 	useExternalSource,
 	selectedCPT,
 } ) {
-	const posts = useSelect(
-		( select ) => select( coreStore ).getEntityRecords(
-			'postType',
-			selectedCPT,
-			{
-				per_page: -1,
-				_fields: [ 'acf', 'id', 'title' ],
-			}
-		),
+	const { posts, isResolving } = useSelect(
+		( select ) => {
+			const posts = select( coreStore ).getEntityRecords(
+				'postType',
+				selectedCPT,
+				{
+					per_page: -1,
+					_fields: [ 'acf', 'id', 'title' ],
+				}
+			);
+			const isResolving = select( coreStore ).isResolving(
+				'getEntityRecords',
+				[
+					'postType',
+					selectedCPT,
+					{
+						per_page: -1,
+						_fields: [ 'acf', 'id', 'title' ],
+					},
+				]
+			);
+			return { posts, isResolving };
+		},
 		[ selectedCPT ]
 	);
 
@@ -46,5 +60,5 @@ export default function useFilesPreview( {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ selectText, pdfFiles, useExternalSource, posts ] );
 
-	return { options };
+	return { options, isResolving };
 }
