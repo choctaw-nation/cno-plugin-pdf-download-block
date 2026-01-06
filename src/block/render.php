@@ -28,11 +28,13 @@ if ( $attributes['useExternalSource'] && ! empty( $attributes['selectedCPT'] ) )
 			$pdf_file = get_field( 'pdf_file' ); // Assuming ACF field name is 'pdf_file'
 
 			if ( $pdf_file ) {
-				$pdfs[] = array(
-					'id'    => get_the_ID(),
-					'title' => get_field( 'use_post_title_as_form_name' ) ? get_the_title() : $pdf_file['title'],
-					'url'   => $pdf_file['url'],
+				$arr          = array(
+					'id'  => get_the_ID(),
+					'url' => $pdf_file['url'],
 				);
+				$arr['title'] = get_field( 'use_post_title_as_form_name' ) ? get_the_title() : esc_html( $pdf_file['title'] );
+				$arr['title'] = html_entity_decode( $arr['title'], ENT_QUOTES, get_bloginfo( 'charset' ) );
+				$pdfs[]       = $arr;
 			}
 		}
 		wp_reset_postdata();
@@ -53,7 +55,7 @@ $context = wp_interactivity_data_wp_context(
 ?>
 <div data-wp-interactive="cnoPdfDownloadSelector" <?php echo $block_props . $context; ?>>
 	<select name="pdf-form-select" class="pdf-select" data-wp-on--change="actions.updateUrl">
-		<option value=""><?php echo esc_textarea( $attributes['selectText'] ); ?></option>
+		<option value=""><?php echo esc_html( $attributes['selectText'] ); ?></option>
 		<template data-wp-each--pdf="context.pdfs" data-wp-each-key="context.pdf.id">
 			<option data-wp-bind--value="context.pdf.url" data-wp-text="context.pdf.title">
 			</option>
@@ -62,5 +64,5 @@ $context = wp_interactivity_data_wp_context(
 		<option data-wp-each-child value="<?php echo $pdf['url']; ?>"><?php echo $pdf['title']; ?></option>
 		<?php endforeach; ?>
 	</select>
-	<a class="pdf-download-btn" data-wp-bind--disabled="state.isDisabled" data-wp-bind--href="context.href" target="_blank"><?php echo esc_textarea( $attributes['buttonText'] ); ?></a>
+	<a class="pdf-download-btn" data-wp-bind--disabled="state.isDisabled" data-wp-bind--href="context.href" target="_blank"><?php echo esc_html( $attributes['buttonText'] ); ?></a>
 </div>

@@ -4,10 +4,17 @@ import {
 	Flex,
 	FlexBlock,
 } from '@wordpress/components';
+import { useEffect } from '@wordpress/element';
 import useAllowedCPTs from './hooks/useAllowedCPTs';
 
 export default function CPTSettings( { attributes, setAttributes } ) {
 	const { allowedPostTypes } = useAllowedCPTs();
+
+	useEffect( () => {
+		if ( allowedPostTypes.length === 1 && ! attributes.selectedCPT ) {
+			setAttributes( { selectedCPT: allowedPostTypes[ 0 ].value } );
+		}
+	}, [ allowedPostTypes, attributes.selectedCPT, setAttributes ] );
 	return (
 		<PanelBody
 			title="CPT Settings"
@@ -18,6 +25,7 @@ export default function CPTSettings( { attributes, setAttributes } ) {
 					<SelectControl
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
+						disabled={ allowedPostTypes.length <= 1 }
 						options={ allowedPostTypes }
 						label="Select a post type"
 						help="Select the custom post type from which to load PDFs."
