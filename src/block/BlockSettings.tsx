@@ -3,6 +3,7 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
+
 import {
 	PanelBody,
 	Button,
@@ -10,14 +11,18 @@ import {
 	ToggleControl,
 	Tip,
 	ExternalLink,
+	Spinner,
 	Flex,
 	FlexBlock,
 } from '@wordpress/components';
 import CPTSettings from './CPTSettings';
+import { selectedPDF, selectedPDFWithTitle } from './types';
+import usePdfFilesWithTitles from './hooks/usePdfFilesWithTitles';
 
 export default function BlockSettings( props ) {
 	const { attributes, setAttributes } = props;
 	const { pdfFiles, selectText, useExternalSource } = attributes;
+	const { selectedPDFs, isLoading } = usePdfFilesWithTitles( pdfFiles );
 
 	function addPdf( media: any ) {
 		if ( useExternalSource ) {
@@ -27,20 +32,19 @@ export default function BlockSettings( props ) {
 			const entry = {
 				id: media.id,
 				url: media.url,
-				title: media.title || media.filename,
 			};
 			setAttributes( { pdfFiles: [ ...pdfFiles, entry ] } );
 		}
 	}
 
-	function removePdf( index: number ) {
+	function removePdf( entry: selectedPDF ) {
 		if ( useExternalSource ) {
 			return;
 		}
-		const updated = pdfFiles.slice();
-		updated.splice( index, 1 );
-		setAttributes( { pdfFiles: updated } );
+		const filtered = pdfFiles.filter( ( file ) => file.id !== entry.id );
+		setAttributes( { pdfFiles: filtered } );
 	}
+
 	return (
 		<InspectorControls>
 			<PanelBody title="PDF Source Options" initialOpen={ true }>
@@ -112,18 +116,19 @@ export default function BlockSettings( props ) {
 								</MediaUploadCheck>
 							</FlexBlock>
 							<FlexBlock>
-								{ pdfFiles.length > 0 &&
-									pdfFiles.map(
-										( file: any, index: number ) => (
+								{ isLoading && <Spinner /> }
+								{ ! isLoading && pdfFiles.length > 0 &&
+									selectedPDFs.map(
+										( file: selectedPDFWithTitle ) => (
 											<div
-												key={ index }
+												key={ file.id }
 												style={ { marginTop: '1rem' } }
 											>
 												<strong>{ file.title }</strong>
 												<Button
 													isDestructive
 													onClick={ () =>
-														removePdf( index )
+														removePdf( file )
 													}
 													style={ {
 														marginLeft: '.5rem',
