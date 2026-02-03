@@ -12,7 +12,7 @@ $block_props = get_block_wrapper_attributes(
 		'data-wp-interactive' => 'cnoPdfDownloadSelector',
 	)
 );
-$pdfs        = $attributes['pdfFiles'];
+$pdfs        = isset( $attributes['pdfFiles'] ) ? $attributes['pdfFiles'] : array();
 if ( $attributes['useExternalSource'] && ! empty( $attributes['selectedCPT'] ) ) {
 	$pdfs      = array();
 	$pdf_query = new WP_Query(
@@ -28,17 +28,50 @@ if ( $attributes['useExternalSource'] && ! empty( $attributes['selectedCPT'] ) )
 			$pdf_file = get_field( 'pdf_file' ); // Assuming ACF field name is 'pdf_file'
 
 			if ( $pdf_file ) {
-				$arr          = array(
-					'id'  => get_the_ID(),
+				// Prefer the attachment ID when available in the ACF file array
+				$attachment_id = isset( $pdf_file['ID'] ) ? intval( $pdf_file['ID'] ) : 0;
+				$arr           = array(
+					'id'  => $attachment_id ? $attachment_id : get_the_ID(),
 					'url' => $pdf_file['url'],
 				);
-				$arr['title'] = get_field( 'use_post_title_as_form_name' ) ? get_the_title() : esc_html( $pdf_file['title'] );
-				$arr['title'] = html_entity_decode( $arr['title'], ENT_QUOTES, get_bloginfo( 'charset' ) );
+
+				// If configured, use the CPT post title; otherwise prefer the attachment title when we have an attachment ID
+				if ( get_field( 'use_post_title_as_form_name' ) ) {
+					$pdf_title = get_the_title();
+				} elseif ( $attachment_id ) {
+					$pdf_title = get_the_title( $attachment_id );
+				} else {
+					$pdf_title = isset( $pdf_file['title'] ) ? $pdf_file['title'] : '';
+				}
+
+				$arr['title'] = html_entity_decode( $pdf_title, ENT_QUOTES, get_bloginfo( 'charset' ) );
 				$pdfs[]       = $arr;
 			}
 		}
 		wp_reset_postdata();
 	}
+}
+
+// Normalize titles: if an entry has an ID for an attachment, fetch the attachment/post title server-side
+if ( is_array( $pdfs ) && count( $pdfs ) > 0 ) {
+	$normalized = array();
+	foreach ( $pdfs as $pdf ) {
+		$pdf_id    = isset( $pdf['id'] ) ? intval( $pdf['id'] ) : 0;
+		$pdf_title = '';
+		if ( $pdf_id ) {
+			$maybe_title = get_the_title( $pdf_id );
+			if ( $maybe_title ) {
+				$pdf_title = $maybe_title;
+			}
+		}
+		if ( empty( $pdf_title ) && isset( $pdf['title'] ) ) {
+			$pdf_title = $pdf['title'];
+		}
+		$pdf_title    = html_entity_decode( $pdf_title, ENT_QUOTES, get_bloginfo( 'charset' ) );
+		$pdf['title'] = $pdf_title;
+		$normalized[] = $pdf;
+	}
+	$pdfs = $normalized;
 }
 wp_interactivity_state(
 	'cnoPdfDownloadSelector',
