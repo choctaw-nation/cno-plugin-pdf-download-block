@@ -24,6 +24,7 @@ ACF Fields **must** be exposed to the REST API for access in the block editor! S
 ### v1.0.2 - [February 3, 2026]
 
 - Fixed: Block now correctly grabs titles from server instead of relying on static, saved data.
+- Chore: Update packages
 
 ### v1.0.1 - [January 2, 2026]
 

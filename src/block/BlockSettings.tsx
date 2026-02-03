@@ -51,7 +51,6 @@ export default function BlockSettings( props ) {
 				<Flex direction={ 'column' } gap={ 6 }>
 					<FlexBlock>
 						<ToggleControl
-							__nextHasNoMarginBottom
 							label="Use CPT"
 							checked={ useExternalSource }
 							onChange={ ( value: boolean ) =>
@@ -87,7 +86,6 @@ export default function BlockSettings( props ) {
 					<FlexBlock>
 						<TextControl
 							__next40pxDefaultSize
-							__nextHasNoMarginBottom
 							label="Select Dropdown Text"
 							value={ selectText }
 							onChange={ ( value: string ) => {
