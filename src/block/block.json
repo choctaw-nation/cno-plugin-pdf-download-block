@@ -12,7 +12,7 @@
 		"spacing": {
 			"margin": true
 		},
-		"align": [ "wide", "full" ],
+		"align": ["wide", "full"],
 		"alignWide": true
 	},
 	"attributes": {

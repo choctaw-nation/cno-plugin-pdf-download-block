@@ -20,7 +20,7 @@
 		"editor.formatOnSave": true
 	},
 	"[typescript]": {
-		"editor.formatOnSave": true
+		"editor.formatOnSave": false
 	},
 	"[typescriptreact]": {
 		"editor.formatOnSave": false
@@ -38,7 +38,7 @@
 		"editor.useTabStops": true,
 		"prettier.useTabs": false
 	},
-	"cSpell.words": [ "alignfull", "bloginfo", "featuredmedia", "pdfs" ],
+	"cSpell.words": ["alignfull", "bloginfo", "featuredmedia", "pdfs"],
 	"css.format.spaceAroundSelectorSeparator": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always",
@@ -59,6 +59,6 @@
 	"html.format.templating": true,
 	"phpSniffer.standard": "phpcs.xml.dist",
 	"scss.format.spaceAroundSelectorSeparator": true,
-	"stylelint.snippet": [ "css", "scss" ],
-	"stylelint.validate": [ "css", "scss" ]
+	"stylelint.snippet": ["css", "scss"],
+	"stylelint.validate": ["css", "scss"]
 }

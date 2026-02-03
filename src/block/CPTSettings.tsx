@@ -24,7 +24,6 @@ export default function CPTSettings( { attributes, setAttributes } ) {
 				<FlexBlock>
 					<SelectControl
 						__next40pxDefaultSize
-						__nextHasNoMarginBottom
 						disabled={ allowedPostTypes.length <= 1 }
 						options={ allowedPostTypes }
 						label="Select a post type"

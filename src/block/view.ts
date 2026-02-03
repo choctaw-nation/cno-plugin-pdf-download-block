@@ -13,7 +13,7 @@ const { actions } = store( 'cnoPdfDownloadSelector', {
 	},
 	actions: {
 		updateUrl( event: Event ) {
-			const context = getContext();
+			const context = getContext() as Context;
 			const select = event.target as HTMLSelectElement;
 			context.href = select.value;
 		},
